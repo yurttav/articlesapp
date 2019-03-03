@@ -1,0 +1,47 @@
+
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+            <a class="navbar-brand" href="/">Binance Coins</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+
+              <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                  <a class="nav-link" href="{% url 'about' %}">Hakkımızda </a>
+                </li>
+                <li class="nav-item active">
+                  <!--dinamik url kullanımı örnek-->
+                  <a class="nav-link" href="{% url 'article:articles' %}">Makaleler </a>
+                </li>              
+              </ul>
+
+              <ul class="navbar-nav ml-auto">
+              <!--Kullanıcının giriş yapmış olma durumuna göre sağdaki menülerin ayarlanması-->
+                {% if request.user.is_authenticated %}
+                  <li class="nav-item active">
+                    <a class="nav-link">Merhaba {{ request.user}} </a>
+                  </li>
+                  <li class="nav-item active">
+                    <a class="nav-link" href="/articles/dashboard">Kontrol Panel </a>
+                  </li> 
+
+                  <li class="nav-item active">
+                    <a class="nav-link" href="/user/logout">Çıkış Yap </a>
+                  </li> 
+
+                {% else %}
+                  <li class="nav-item active">
+                    <a class="nav-link" href="/user/login">Giriş </a>
+                  </li>  
+
+                  <li class="nav-item active">
+                    <a class="nav-link" href="/user/register">Kayıt </a>
+                  </li>   
+
+                {% endif %}                           
+                                         
+              </ul>
+              
+            </div>
+          </nav>

@@ -1,0 +1,73 @@
+{% extends "layout.html" %}
+{% block body  %}
+
+<!--startbootstrap blog post arama yaparak layout aldık-->
+
+    <div class="row">
+
+        <div class="col-md-6 offset-md-3">
+            <div class="col-lg-8">
+                <h3>Makaleler</h3>
+                <hr>
+            </div>
+
+            {% if articles %}
+
+                <!--Arama-->
+                <div class="col-lg-8">
+                <!--Arama işlemini klasik form ve get kullanarak değişik bir şekilde yaptık, action ve method = post parametrelerini sildik-->  
+                <form>      
+                    {% csrf_token %}
+                    <input type="text" name= "keyword" class="input-sm" maxlength="64" placeholder="Ara">
+                    <button type="submit" class="btn btn-danger">Ara</button>              
+                </form>
+                <hr>
+                </div>
+
+
+                {% for article in articles %}
+    
+                    <!-- Post Content Column -->
+                    <div class="col-lg-8">
+    
+                    <!-- Title -->
+                    <a href="/articles/article/{{article.id}}" ><h3 class="mt-4">{{article.title}}</h3></a>
+    
+                    <!-- Author -->
+                    <p class="lead">
+                        <a href="#">{{article.author}} tarafından yazılmıştır.</a>
+                    </p>  
+                    <hr>
+    
+                    <!-- Date/Time -->
+                    <p>{{article.created_date}} tarihinde yayınlandı</p>
+    
+                    <hr>
+    
+                    <!-- Preview Image -->
+                    {% if article.image %}
+                        <img class="img-fluid rounded" src="{{article.image.url}}" alt="">
+                    {% endif %}
+    
+                    <hr>
+    
+                    <!-- Post Content -->
+                    <p class="lead">
+                        {{article.content|safe|truncatewords:20}}  
+                    </p>
+                    <a style = "float : right;" href="/articles/article/{{article.id}}" class="btn btn-danger">Devamını Oku</a>
+    
+                    <hr>        
+      
+                    </div>
+                {% endfor %}
+            {% else %}
+                <div class = "alert alert-danger">Makale bulunamadı</div>
+            {% endif %}
+
+        </div>
+
+    </div>
+    <!-- /.row -->
+
+{% endblock  %}

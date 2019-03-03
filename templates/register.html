@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+
+{% block  body%}
+<!--Crispy form için ekledik-->
+{% load crispy_forms_tags %}
+
+<div class="row">
+    <div class="col-md-6 offset-md-3">
+        <h3>Kayıt Ol</h3>
+        <hr>
+        
+        <form method = "post">
+        <!--formu göstermek için böyle yapmak lazım-->
+        <!--CSRF işlemini eklemek lazım, hata veriyor yoksa-->
+        {% csrf_token %}
+        <!-- form.as_p yerine crispy için bunu kullandık  {{form.as_p}}     -->
+        {{form|crispy}}
+        <br>
+        <button type="submit" class = "btn btn-danger">Kayıt Olunuz</button>
+    </form>
+    </div>
+</div>
+
+{% endblock  %}
